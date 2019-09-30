@@ -87,20 +87,36 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="SUZ-9n-1dz">
                                 <rect key="frame" x="105.5" y="574" width="203" height="32"/>
                                 <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
+                                    <segment title="Easy"/>
+                                    <segment title="Regular"/>
                                     <segment title="Custom"/>
                                 </segments>
                                 <connections>
                                     <action selector="notesSegmentSelected:" destination="BYZ-38-t0r" eventType="valueChanged" id="liJ-Es-IHa"/>
                                 </connections>
                             </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsI-3o-FK6">
+                                <rect key="frame" x="203" y="651" width="8" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="9md-bo-1jr">
+                                <rect key="frame" x="160" y="701.5" width="94" height="32"/>
+                                <connections>
+                                    <action selector="numberOfNotesChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="eLh-RF-68g"/>
+                                </connections>
+                            </stepper>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="MsI-3o-FK6" firstAttribute="top" secondItem="SUZ-9n-1dz" secondAttribute="bottom" constant="46" id="BUo-7q-MEc"/>
+                            <constraint firstItem="MsI-3o-FK6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GQG-aM-CCn"/>
+                            <constraint firstItem="9md-bo-1jr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HVM-1b-xIX"/>
                             <constraint firstItem="SUZ-9n-1dz" firstAttribute="top" secondItem="DKz-SY-5Ol" secondAttribute="bottom" constant="45.5" id="Ktz-bL-ClU"/>
                             <constraint firstItem="DKz-SY-5Ol" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="T1x-8W-5Ne"/>
                             <constraint firstItem="SUZ-9n-1dz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Z3h-0D-ymS"/>
+                            <constraint firstItem="9md-bo-1jr" firstAttribute="top" secondItem="MsI-3o-FK6" secondAttribute="bottom" constant="30" id="oPK-IT-cVp"/>
                             <constraint firstItem="DKz-SY-5Ol" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="v4S-Tp-7Wa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -112,7 +128,9 @@
                         <outlet property="dButton" destination="kkb-YX-SVz" id="hVH-fj-v2Z"/>
                         <outlet property="eButton" destination="eRK-7a-XnT" id="ASu-MD-EA1"/>
                         <outlet property="fButton" destination="5Nd-0f-N0r" id="Wlh-QI-z3r"/>
+                        <outlet property="notesNumberStepper" destination="9md-bo-1jr" id="eji-Bd-zyW"/>
                         <outlet property="notesSegmentCOntrol" destination="SUZ-9n-1dz" id="D9Z-6o-jDs"/>
+                        <outlet property="numberOfNotesLabel" destination="MsI-3o-FK6" id="Zzy-nY-fdy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

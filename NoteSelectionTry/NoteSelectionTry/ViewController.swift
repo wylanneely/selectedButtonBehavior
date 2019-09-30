@@ -14,59 +14,42 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpButtonStates()
-        
+        notesNumberStepper.wraps = true
+        notesNumberStepper.maximumValue = 6
+        notesNumberStepper.minimumValue = 2
+        notesNumberStepper.isEnabled = false
     }
+    
     var lastButtonSelected: Int = 0
     var numberOfSelectedNotes: Int = 1
-
-    var selectedButtonTags: [Int] = [0]
     
+    var selectedButtonTags: [Int] = [0]
     func updateSelectedButtonTagsWith(buttonTag:Int) {
         selectedButtonTags.removeLast()
         selectedButtonTags.insert(buttonTag, at: 0)
-
     }
     
-    
-    
-    func updateSelectedNotesTags(){
-        let aButtonTag = 0
-        let bButtonTag = 1
-        let cButtonTag = 2
+    func updateSelectedButtonStateTags(){
         switch numberOfSelectedNotes {
         case 1:
-            let singleNoteArray = [aButtonTag]
-            selectedButtonTags = singleNoteArray
+            selectedButtonTags = [0]
         case 2:
-            let twoNotesArray = [aButtonTag,bButtonTag]
-            selectedButtonTags = twoNotesArray
+            selectedButtonTags = [0,1]
         case 3:
-            let threeNotesArray = [aButtonTag,bButtonTag,cButtonTag]
-            selectedButtonTags = threeNotesArray
+            selectedButtonTags = [0,1,2]
+        case 4:
+            selectedButtonTags = [0,1,2,3]
+        case 5:
+            selectedButtonTags = [0,1,2,3,4]
+        case 6:
+            selectedButtonTags = [0,1,2,3,4,5]
         default:
+            selectedButtonTags = [0,1,2]
             return
         }
     }
     
     
-    
-    
-    @IBAction func notesSegmentSelected(_ sender: UISegmentedControl) {
-        switch notesSegmentCOntrol.selectedSegmentIndex {
-        case 0 : numberOfSelectedNotes = 1
-            updateButtonStates()
-            updateSelectedNotesTags()
-        case 1: numberOfSelectedNotes = 2
-            updateButtonStates()
-            updateSelectedNotesTags()
-        case 3: numberOfSelectedNotes = 3
-            updateButtonStates()
-            updateSelectedNotesTags()
-        default: numberOfSelectedNotes = 1
-            updateButtonStates()
-            updateSelectedNotesTags()
-        }
-    }
     
     @IBAction func AbuttonClicked(_ sender: Any) {
         
@@ -120,10 +103,6 @@ class ViewController: UIViewController {
                 return
             }
         default:
-            deselectLastButton()
-            updateSelectedButtonTagsWith(buttonTag: 0)
-            aButton.isSelected = true
-            lastButtonSelected = 0
             return
         }
     }
@@ -202,7 +181,7 @@ class ViewController: UIViewController {
                 lastButtonSelected = 2
                 return
             }
-        case 3:
+        case 3...6:
             if cButton.isSelected == true {
                 lastButtonSelected = 2
                 cButton.isSelected = true
@@ -215,8 +194,6 @@ class ViewController: UIViewController {
                 return
             }
         default:
-            cButton.isSelected = true
-            lastButtonSelected = 2
             return
         }
         
@@ -263,17 +240,7 @@ class ViewController: UIViewController {
                 return
             }
         default:
-            if dButton.isSelected == true {
-                dButton.isSelected = true
-                lastButtonSelected = 3
                 return
-            } else {
-                deselectLastButton()
-                updateSelectedButtonTagsWith(buttonTag: 3)
-                dButton.isSelected = true
-                lastButtonSelected = 3
-                return
-            }
         }
     }
     
@@ -303,34 +270,21 @@ class ViewController: UIViewController {
                 lastButtonSelected = 4
                 return
             }
-        case 3:
+        case 3...6:
             if eButton.isSelected == true {
                 eButton.isSelected = true
-                lastButtonSelected = 4
                 return
             } else {
                 deselectLastButton()
                 updateSelectedButtonTagsWith(buttonTag: 4)
                 eButton.isSelected = true
-                lastButtonSelected = 4
                 return
             }
         default:
-            if eButton.isSelected == true {
-                eButton.isSelected = true
-                lastButtonSelected = 4
-                return
-            } else {
-                deselectLastButton()
-                updateSelectedButtonTagsWith(buttonTag: 4)
-                eButton.isSelected = true
-                lastButtonSelected = 4
-                return
-            }
+            return
         }
-        
-        
     }
+    
     @IBAction func fButtonClicked(_ sender: Any) {
         switch numberOfSelectedNotes {
         case 1:
@@ -357,7 +311,7 @@ class ViewController: UIViewController {
                 lastButtonSelected = 5
                 return
             }
-        case 3:
+        case 3...6:
             if fButton.isSelected == true {
                 fButton.isSelected = true
                 lastButtonSelected = 5
@@ -369,18 +323,7 @@ class ViewController: UIViewController {
                 lastButtonSelected = 5
                 return
             }
-        default:
-            if fButton.isSelected == true {
-                fButton.isSelected = true
-                lastButtonSelected = 5
-                return
-            } else {
-                deselectLastButton()
-                updateSelectedButtonTagsWith(buttonTag: 5)
-                fButton.isSelected = true
-                lastButtonSelected = 5
-                return
-            }
+        default: return
         }
         
         
@@ -410,67 +353,118 @@ class ViewController: UIViewController {
     
     
     func updateButtonStates(){
-        switch notesSegmentCOntrol.selectedSegmentIndex {
-        case 0:
-            numberOfSelectedNotes = 1
+        switch numberOfSelectedNotes {
+        case 1:
             aButton.isSelected = true
             bButton.isSelected = false
             cButton.isSelected = false
             dButton.isSelected = false
             eButton.isSelected = false
             fButton.isSelected = false
-            lastButtonSelected = 0
-            updateSelectedNotesTags()
-        case 1:
+            updateSelectedButtonStateTags()
+        case 2:
             aButton.isSelected = true
             bButton.isSelected = true
             cButton.isSelected = false
             dButton.isSelected = false
             eButton.isSelected = false
             fButton.isSelected = false
-            lastButtonSelected = 0
-            numberOfSelectedNotes = 2
-            updateSelectedNotesTags()
-        case 2:
+            updateSelectedButtonStateTags()
+        case 3:
             aButton.isSelected = true
             bButton.isSelected = true
             cButton.isSelected = true
             dButton.isSelected = false
             eButton.isSelected = false
             fButton.isSelected = false
-            lastButtonSelected = 0
-            numberOfSelectedNotes = 3
-            updateSelectedNotesTags()
+            updateSelectedButtonStateTags()
+        case 4:
+            aButton.isSelected = true
+            bButton.isSelected = true
+            cButton.isSelected = true
+            dButton.isSelected = true
+            eButton.isSelected = false
+            fButton.isSelected = false
+            updateSelectedButtonStateTags()
+        case 5:
+            aButton.isSelected = true
+            bButton.isSelected = true
+            cButton.isSelected = true
+            dButton.isSelected = true
+            eButton.isSelected = true
+            fButton.isSelected = false
+            updateSelectedButtonStateTags()
+        case 6:
+            aButton.isSelected = true
+            bButton.isSelected = true
+            cButton.isSelected = true
+            dButton.isSelected = true
+            eButton.isSelected = true
+            fButton.isSelected = true
+            updateSelectedButtonStateTags()
         default:
-            lastButtonSelected = 0
-            numberOfSelectedNotes = 3
-            updateSelectedNotesTags()
             return
         }
     }
     
     func setUpButtonStates() {
-        switch notesSegmentCOntrol.selectedSegmentIndex {
-        case 0: aButton.isSelected = true
-        case  1:
+        switch numberOfSelectedNotes {
+        case 1: aButton.isSelected = true
+        case  2:
             aButton.isSelected = true
             bButton.isSelected = true
-        case 2:
+        case 3:
             aButton.isSelected = true
             bButton.isSelected = true
             cButton.isSelected = true
         default:
-            aButton.isSelected = true
+            return
         }
         
     }
+    @IBAction func numberOfNotesChanged(_ sender: UIStepper) {
 
+            let newNotesValue = Int(sender.value)
+            numberOfNotesLabel.text = "\(newNotesValue)"
+            numberOfSelectedNotes = newNotesValue
+            updateButtonStates()
+        
+  
+    }
+   
+    @IBAction func notesSegmentSelected(_ sender: UISegmentedControl) {
+        switch notesSegmentCOntrol.selectedSegmentIndex {
+        case 0 :
+            notesNumberStepper.isEnabled = false
+            self.numberOfSelectedNotes = 1
+            numberOfNotesLabel.text = "1"
+            updateButtonStates()
+            updateSelectedButtonStateTags()
+        case 1:
+            notesNumberStepper.isEnabled = false
+            self.numberOfSelectedNotes = 3
+            numberOfNotesLabel.text = "3"
+            updateButtonStates()
+            updateSelectedButtonStateTags()
+        case 2:
+            notesNumberStepper.isEnabled = true
+            notesNumberStepper.value = 4
+            self.numberOfSelectedNotes = 4
+            numberOfNotesLabel.text = "4"
+            updateButtonStates()
+            updateSelectedButtonStateTags()
+        default:
+            return
+        }
+    }
     @IBOutlet weak var aButton: UIButton!
     @IBOutlet weak var bButton: UIButton!
     @IBOutlet weak var cButton: UIButton!
     @IBOutlet weak var dButton: UIButton!
     @IBOutlet weak var eButton: UIButton!
     @IBOutlet weak var fButton: UIButton!
+    @IBOutlet weak var numberOfNotesLabel: UILabel!
+    @IBOutlet weak var notesNumberStepper: UIStepper!
     
 
     
